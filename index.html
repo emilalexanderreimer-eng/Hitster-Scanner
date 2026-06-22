@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hitster Scanner (Web)</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <header class="site-header">
+    <p class="eyebrow">HITSTER · WEB-SCANNER</p>
+    <h1>Karten scannen &amp; Musik starten</h1>
+  </header>
+
+  <!-- ============ SETUP / LOGIN ============ -->
+  <section id="login-screen" class="screen">
+    <div class="card-box">
+      <h2>1. Einmalig einrichten</h2>
+      <div class="field">
+        <label for="client-id-input">Spotify Client-ID</label>
+        <input type="text" id="client-id-input" placeholder="z. B. 1a2b3c4d…">
+        <p class="hint">Aus deinem <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener">Spotify-Developer-Dashboard</a>. Trag bei der App unter "Redirect URIs" genau diese URL ein:</p>
+        <p class="redirect-uri-box"><code id="redirect-uri-display">…</code> <button type="button" id="copy-redirect-btn" class="btn ghost small">Kopieren</button></p>
+        <p class="hint">Außerdem unter "User Management" deinen eigenen Spotify-Account als Test-User hinzufügen (Pflicht im Development Mode).</p>
+      </div>
+      <button type="button" id="save-client-id-btn" class="btn ghost small">Client-ID speichern</button>
+
+      <div class="divider"></div>
+
+      <h2>2. Verbinden</h2>
+      <p class="hint">Erfordert Spotify Premium und die Spotify-App/-Website auf irgendeinem Gerät — die Musik spielt direkt in diesem Browser-Tab.</p>
+      <button type="button" id="login-btn" class="btn primary">Mit Spotify verbinden</button>
+      <p id="login-status" class="status" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- ============ SCANNER ============ -->
+  <section id="scanner-screen" class="screen" hidden>
+    <div class="status-bar">
+      <span id="connection-dot" class="dot"></span>
+      <span id="connection-text">Verbinde mit Spotify …</span>
+    </div>
+
+    <div id="qr-reader"></div>
+
+    <div class="feedback-box">
+      <p id="feedback-text" class="feedback-text">Karte vor die Kamera halten …</p>
+      <button type="button" id="search-fallback-btn" class="btn ghost small" hidden>In Spotify öffnen</button>
+    </div>
+
+    <div class="controls-row">
+      <button type="button" id="play-pause-btn" class="btn ghost">Pause</button>
+      <button type="button" id="disconnect-btn" class="btn ghost danger">Trennen</button>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>Hinweis: Diese Seite zeigt absichtlich nie Titel/Interpret des laufenden Songs an — das wäre die Antwort des Rate-Spiels. Die Wiedergabe läuft über das offizielle <strong>Spotify Web Playback SDK</strong> direkt in diesem Browser-Tab; lass den Tab beim Spielen geöffnet (im Hintergrund/anderer Tab ist okay, geschlossen oder Browser beendet stoppt die Wiedergabe).</p>
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="spotify.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
